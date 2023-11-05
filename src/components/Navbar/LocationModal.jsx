@@ -51,7 +51,7 @@ const LocationModalContainer = styled(Flex)`
   align-items: center;
   padding: 2rem 1rem;
 `;
-const Heading = styled.span`
+export const Heading = styled.span`
   font-size: 30px;
 `;
 const Popular = styled(Col)`
