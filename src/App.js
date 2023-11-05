@@ -4,16 +4,18 @@ import Footer from "./components/Footer";
 import ContentManager from "./components/ContentManager";
 import Swiper from "./components/Swiper";
 import SwiperSlider from "./components/Swiper";
-
+import ErrorBoundary from "./components/ErrorBoundary";
 
 const App = () => {
   return (
     <>
-      <MainContainer>
-        <Navbar/>
-        <ContentManager/>
-        <Footer/>
-      </MainContainer>
+      <ErrorBoundary>
+        <MainContainer>
+          <Navbar />
+          <ContentManager />
+          <Footer />
+        </MainContainer>
+      </ErrorBoundary>
     </>
   );
 };
@@ -24,5 +26,4 @@ const MainContainer = styled.div`
   height: 100vh;
   display: flex;
   flex-direction: column;
-
 `;
