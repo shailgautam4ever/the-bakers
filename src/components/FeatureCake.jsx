@@ -2,34 +2,40 @@ import { styled } from "styled-components";
 import Card from "./Card";
 import { Flex } from "../styled/common";
 import { Heading } from "./Navbar/LocationModal";
+import axios from "../service/axios";
+import { useEffect, useState } from "react";
+import Loading from "./Loading";
+import { getImage } from "../helper/image";
 
 const FeatureCake = () => {
-  const featureCakeData = [
-    {
-      name: "Regular Cakes",
-      url: "/assets/cakeImages/RegCake.webp",
-    },
-    {
-      name: "Gourmet Cakes",
-      url: "/assets/cakeImages/GC.webp",
-    },
-    {
-      name: "Fruit Cakes",
-      url: "/assets/cakeImages/fruitCake.webp",
-    },
-    {
-      name: "Theme Cakes",
-      url: "/assets/cakeImages/Theme.webp",
-    },
-  ];
+  const [featureCake, setFeatureCake] = useState([]);
+  const [load, setLoad] = useState(true);
+  // const urlString = "http://localhost:8080/";
+
+  useEffect(() => {
+    fetchCake();
+  }, []);
+
+  const fetchCake = async () => {
+    setLoad(true);
+    const { data } = await axios.get("feature-cake");
+    setLoad(false);
+
+    setFeatureCake(data.mock);
+  };
+
   return (
     <FeatureCakeContainer>
       <Heading>Surprise Your Loved One</Heading>
-      <CardList>
-        {featureCakeData.map((v, i) => (
-          <Card image={v.url} name={v.name} key={i} />
-        ))}
-      </CardList>
+      {load ? (
+        <Loading />
+      ) : (
+        <CardList>
+          {featureCake.map((v, i) => (
+            <Card image={getImage(v.url)} name={v.name} key={i} />
+          ))}
+        </CardList>
+      )}
     </FeatureCakeContainer>
   );
 };
